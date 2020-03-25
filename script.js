@@ -1,20 +1,61 @@
 
-//TODO: collect city from user input search bar
-//TODO: use an ajax method to call api and get the info from that city
+function setCity(){
+  localStorage.setItem("savedCity", city)
+}
 
-var queryURL = "api.openweathermap.org/data/2.5/weather?q=seattle&appid=1d5a21ab353d52787a108e6591a64d4c"
+function getCity(){
+  localStorage.getItem("savedCity")
+}
 
-$.ajax({
+function submit(){
+  city = $("#city-name").val();
+  var queryURL = "http://api.weatherapi.com/v1/forecast.json?key=bc100a5652e84c4cb0520112202503&q=" + city + "&days=6"
+  $(".box3").empty()
+  $(".box4").empty()
+  $.ajax({
     url: queryURL,
     method: "GET"
   })
-
-  //promise to do what we do when we get the information
-    .then(function(response) {
+  
+  .then(function(response) {
         console.log(response)
-    
-    });
+        var newCurrent = $("<div>");
+        
+        var currentDate = $("<p>");
+        currentDate.text("Today")
+        var currentTemp = $("<p>");
+        currentTemp.text("Current temp: " + response.current.temp_f)
+        var currentCondition = $("<p>");
+        currentCondition.text("Current condition: " + response.current.condition.text)
 
-//TODO: collect the nessacary info from the api (5 day forcast, current temp, current weather etc.)
-//TODO: use local storage to save the latest results
-//TODO: display it back on the screen 
+        newCurrent.addClass("newDiv")
+
+        newCurrent.append(currentDate);
+        newCurrent.append(currentTemp);
+        newCurrent.append(currentCondition);
+        $(".box3").append(newCurrent)
+
+      for(i=0; i<6; i++){
+        console.log(response.forecast.forecastday[i].day.maxtemp_f);
+        var newDiv = $("<div>");
+        var date = $("<p>");
+        date.text(response.forecast.forecastday[i].date)
+        var tempHigh = $("<p>");
+        tempHigh.text("High: " + response.forecast.forecastday[i].day.maxtemp_f)
+        var tempLow = $("<p>");
+        tempLow.text("Low: " + response.forecast.forecastday[i].day.mintemp_f)
+        var condition = $("<p>");
+        condition.text("Weather condition: " + response.forecast.forecastday[i].day.condition.text)
+
+        newDiv.addClass("newDiv")
+
+        newDiv.append(date);
+        newDiv.append(tempHigh);
+        newDiv.append(tempLow);
+        newDiv.append(condition);
+        $(".box4").append(newDiv)
+      };
+    });
+};
+
+$("#submit").on("click", submit)

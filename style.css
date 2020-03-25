@@ -15,5 +15,12 @@
 
 .box4{
     background-color: slateblue;
-    height: 100px;
+    /* height: 100px; */
+    display: flex;
+}
+
+.newDiv{
+    margin: 10px;
+    background-color: snow;
+    padding: 4px;
 }
