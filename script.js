@@ -9,7 +9,7 @@ function getCity(){
 
 function submit(){
   city = $("#city-name").val();
-  var queryURL = "http://api.weatherapi.com/v1/forecast.json?key=bc100a5652e84c4cb0520112202503&q=" + city + "&days=6"
+  var queryURL = "https://api.weatherapi.com/v1/forecast.json?key=bc100a5652e84c4cb0520112202503&q=" + city + "&days=6"
   $(".box3").empty()
   $(".box4").empty()
   $.ajax({
