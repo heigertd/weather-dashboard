@@ -9,7 +9,7 @@ function getCity(){
 
 function submit(){
   city = $("#city-name").val();
-  var queryURL = "https://api.weatherapi.com/v1/forecast.json?key=bc100a5652e84c4cb0520112202503&q=" + city + "&days=6"
+  var queryURL = "https://api.weatherapi.com/v1/forecast.json?key=bc100a5652e84c4cb0520112202503&q=" + city + "&days=7"
   $(".box3").empty()
   $(".box4").empty()
   $.ajax({
@@ -35,7 +35,7 @@ function submit(){
         newCurrent.append(currentCondition);
         $(".box3").append(newCurrent)
 
-      for(i=0; i<6; i++){
+      for(i=0; i<7; i++){
         console.log(response.forecast.forecastday[i].day.maxtemp_f);
         var newDiv = $("<div>");
         var date = $("<p>");
